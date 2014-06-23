@@ -38,10 +38,9 @@ type Component interface {
 func connect(output, to_input Port) error {
 	if output.Type() == to_input.Type() {
 		fmt.Println("connected", output.Name(), "to", to_input.Name())
-	} else {
-		println("dont match. wont connect")
+		return nil
 	}
-	return nil
+	return fmt.Errorf("port types dont match. wont connect")
 }
 
 type SourceInt struct{}
@@ -66,14 +65,14 @@ func (s SinkStr) Output() (interface{}, error) {
 
 func main() {
 	var a1, a2 SourceInt
-	if connect(a1, a2) != nil {
+	if connect(a1, a2) == nil {
 		println("source and sink port type matches")
 	}
 
 	//Try and connect a source of ints to a sink expecting a string input.
 	//Doesn't work
 	var b SinkStr
-	if connect(a1, b) == nil {
-		println("source and sink port type doesn't match")
+	if err := connect(a1, b); err != nil {
+		fmt.Println(err)
 	}
 }
