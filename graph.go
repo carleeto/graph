@@ -2,10 +2,6 @@ package main
 
 import "fmt"
 
-func matches(a, b interface{}) bool {
-	return a == b
-}
-
 type PortType int
 
 const (
@@ -73,9 +69,11 @@ func main() {
 	if connect(a1, a2) != nil {
 		println("matches")
 	}
+
+	//Try and connect a source of ints to a sink expecting a string input.
+	//Doesn't work
 	var b SinkStr
 	if connect(a1, b) != nil {
 		println("matches")
 	}
-	fmt.Println("Hello, playground")
 }
