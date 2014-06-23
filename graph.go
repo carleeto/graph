@@ -67,13 +67,13 @@ func (s SinkStr) Output() (interface{}, error) {
 func main() {
 	var a1, a2 SourceInt
 	if connect(a1, a2) != nil {
-		println("matches")
+		println("source and sink port type matches")
 	}
 
 	//Try and connect a source of ints to a sink expecting a string input.
 	//Doesn't work
 	var b SinkStr
-	if connect(a1, b) != nil {
-		println("matches")
+	if connect(a1, b) == nil {
+		println("source and sink port type doesn't match")
 	}
 }
